@@ -1,0 +1,120 @@
+/* Navbar base */
+.navbar {
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: #8692ec;
+    margin-bottom: 10px;
+  border-bottom: 1px solid #e87575;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Center */
+.nav-center {
+    justify-self: center;
+}
+
+.nav-center .nav-link {
+    color: #000;                 /* black text */
+    background: #ff9800;         /* orange background for visibility */
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.nav-center .nav-link:hover {
+    background: #ffa726;         /* lighter orange on hover */
+}
+
+/* Left side */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-left .logo {
+  height: 32px;
+  width: 32px;
+  border-radius: 8px;
+}
+
+.navbar-left .brand {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Right side */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Buttons */
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.icon-btn:hover {
+  background: #f3f3f3;
+}
+
+.plus {
+  font-size: 22px;
+  font-weight: bold;
+  color: #444;
+  line-height: 1;
+}
+
+.avatar {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 42px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  min-width: 160px;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 14px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+  background: #f3f3f3;
+}
+
+/* Show dropdown when active */
+.dropdown.open .dropdown-menu {
+  display: block;
+}

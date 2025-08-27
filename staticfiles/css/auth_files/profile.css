@@ -1,0 +1,193 @@
+  body {
+    margin: 0;
+    background: #0b1020;
+    color: #eee;
+}
+
+/* Navbar stays at the top, full width */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: #8692ec;
+  border-bottom: 1px solid #e87575;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-family: "Segoe UI", sans-serif;
+    position: relative;
+}
+/* Wrap main content separately */
+.main-content {
+    display: flex;
+    justify-content: center;
+}
+
+    .profile-container {
+      background: #12182b;
+      width: 90%;
+      max-width: 900px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 200px 1fr; /* left column fixed, right column flexible */
+      gap: 30px;
+      align-items: start;
+    }
+
+    /* Left section (photo + icons) */
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+    /* Glow effect on profile photo */
+.profile-photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ff7b33;
+  box-shadow: 0 0 20px rgba(255,123,51,0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.profile-photo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255,123,51,0.8);
+}
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-info p strong {
+        color: #ff7b33;
+    }
+
+    .profile-info h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      color: #ff7b33;
+    }
+
+    .profile-info p {
+      margin: 5px 0;
+      color: white;
+      font-size: 16px;
+    }
+
+   /* Social links under photo */
+.social-links {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+.social-links a {
+  color: #ff7b33;
+  font-size: 28px;
+  transition: color 0.3s;
+}
+
+.social-links a:hover .inst {
+  color: #e4405f;  /* official Instagram pink */
+}
+
+.social-links a:hover .face {
+  color: #1877f2; /* Official Facebook blue */
+}
+
+.social-links a:hover .twit {
+  color: #000; /* Official X black */
+}
+
+/* Disabled State */
+.social-icons a.disabled {
+    pointer-events: none;   /* not clickable */
+    color: #666;            /* greyed out */
+    opacity: 0.5;           /* faded look */
+}
+
+/* Edit button */
+.edit-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #ff7b33, #ff9a66);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255,123,51,0.4);
+}
+
+/* Responsive tweaks */
+@media (max-width: 700px) {
+  .profile-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 20px;
+  }
+  .profile-left {
+    margin-bottom: 20px;
+  }
+  .profile-photo {
+    margin: 0 auto;
+  }
+  .edit-btn {
+    align-self: center;
+    width: 100%;
+  }
+  .social-links {
+    justify-content: center;
+  }
+}
+
+  .bio-section {
+  margin-top: 15px;
+  position: relative;
+}
+
+#bio-text {
+  max-height: 150px;      /* show only part of bio initially */
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+#bio-text.expanded {
+  max-height: 2000px;     /* large enough to show full bio */
+}
+
+#view-more-btn {
+  background: none;
+  border: none;
+  color: #ff7b33;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: color 0.3s;
+}
+
+#view-more-btn:hover {
+  color: #ab6d49;
+}
+
+.social-links a i.disabled {
+  color: gray;
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none; /* make it unclickable */
+}
+
+.social-links a i.disabled:hover {
+    transform: none;
+    color: gray;
+    opacity: 0.4;
+}

@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    background: #0b1020;
+}
+
+/* Navbar */
+/*
+.navbar {
+    height: 60px;
+    background: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+*/
+
+/* Grid container */
+.grid-container {
+    display: flex;
+    justify-content: center; /* horizontal centering */
+    align-items: flex-start; /* align toward top */
+    margin-top: 60px; /* increase this to push buttons further down */
+    padding: 20px 0; /* spacing around grid */
+    min-height: calc(100vh - 60px); /* leave space for navbar */
+    box-sizing: border-box;
+}
+
+/* 2x2 button grid */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 225px); /* 150px × 1.5 */
+    grid-template-rows: repeat(2, 225px);    /* 150px × 1.5 */
+    gap: 40px;
+}
+
+/* Buttons */
+.button-box {
+    color: #d0c7c7;
+    background: #303565;
+    border: 2px solid #040d21;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.button-box:hover {
+    transform: scale(1.05);
+    background: #686d9b;
+}
+
+.icon {
+    font-size: 60px; /* 40px × 1.5 */
+    margin-bottom: 15px; /* 10px × 1.5 */
+}
+
+.label {
+    font-size: 24px; /* 16px × 1.5 */
+    font-weight: 600;
+}
+
+/* Responsive for small screens */
+@media (max-width: 900px) {
+    body {
+        overflow-y: scroll;
+    }
+
+    .button-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 180px); /* slightly smaller on mobile */
+        gap: 30px; /* reduce spacing a bit */
+    }
+    .icon {
+        font-size: 50px;
+        margin-bottom: 12px;
+    }
+    .label {
+        font-size: 20px;
+    }
+}

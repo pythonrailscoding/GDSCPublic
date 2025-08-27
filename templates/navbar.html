@@ -1,0 +1,58 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+<!-- Google Font for cursive text -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<nav class="navbar">
+  <!-- Left: Logo + Name -->
+  <div class="navbar-left">
+    <img src="{% static 'images/profile_img.png' %}" alt="Blogger Logo" class="logo">
+    <span class="brand" style="font-family: 'Pacifico', cursive;">Blogger!</span>
+  </div>
+    <div class="nav-center">
+        <a href="{% url 'index' %}" class="nav-link">View Blogs</a>
+    </div>
+{% if not request.user.is_authenticated %}
+    <div class="navbar-right">
+    <!-- Plus Dropdown -->
+    <div class="dropdown">
+      <button class="icon-btn">
+        <span class="plus">＋</span>
+      </button>
+      <div class="dropdown-menu">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+      </div>
+    </div>
+ {% endif %}
+    {% if request.user.is_authenticated %}
+  <!-- Right: Icons -->
+  <div class="navbar-right">
+    <!-- Plus Dropdown -->
+    <div class="dropdown">
+      <button class="icon-btn">
+        <span class="plus">＋</span>
+      </button>
+      <div class="dropdown-menu">
+        <a href="{% url 'create' %}">New Blog</a>
+        <a href="#">Upload Image</a>
+        <a href="#">Start Draft</a>
+      </div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="dropdown">
+      <button class="icon-btn">
+        <img src="{% static 'images/profile_photo.png' %}" alt="Profile" class="avatar">
+      </button>
+      <div class="dropdown-menu">
+        <a href="{% url 'profile_user' request.user.id %}">Profile</a>
+        <a href="{% url 'settings_page' %}">Settings</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+  </div>
+    {% endif %}
+    </div>
+</nav>
+
+<script src="{% static 'js/navbar.js' %}"></script>

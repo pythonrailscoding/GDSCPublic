@@ -1,0 +1,19 @@
+<style>
+    li.no-bulletins {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .comment {
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #444;
+    }
+</style>
+
+<li class="comment no-bulletins">
+    <div class="comment-author"><a href="{% url 'profile_user' comment.user.id %}">{{ comment.user.username }}</a></div>
+    <div class="comment-text">{{ comment.content }}</div>
+    <small class="comment-date">{{ comment.created_at }}</small>
+</li>
+

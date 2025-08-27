@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+<div>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+    <main class="container">
+    <h1 class="page-title">Latest Blogs</h1>
+
+    <section class="card-grid">
+      {% for card in blogs %}
+        <article class="card">
+          <a class="card-media" {% if card.thumbnail %}href="{{ card.thumbnail.url }}" target="_blank" rel="noopener" {% else %}href="#"{% endif %}>
+            {% if card.thumbnail %}
+              <img
+                src="{{ card.thumbnail.url }}"
+                alt="{{ card.title }}"
+                loading="lazy"
+                width="640" height="400">
+            {% else %}
+              <div class="card-placeholder" aria-hidden="true">
+                <span>{{ card.title|first|upper }}</span>
+              </div>
+            {% endif %}
+          </a>
+
+          <div class="card-body">
+            <h2 class="card-title">
+                {% with long_text=card.title %}
+                    {{ card.title|truncatechars:25 }}
+                {% endwith %}
+            </h2>
+
+              <p class="card-desc"><a href="{% url 'profile_user' card.user.id %}" class="underline-special">{{ card.user.username }}</a> posted this on {{ card.date }}, {{ card.time }}</p>
+
+            <a href="{% url 'view_blog' card.pk %}" class="btn-card">Read More</a>
+          </div>
+        </article>
+      {% empty %}
+        <p>No blogs posted yet!!</p>
+      {% endfor %}
+    </section>
+  </main>
+
+    {% if blogs.has_other_pages %}
+<nav class="pagination-container">
+    <ul class="pagination">
+
+        <!-- Previous Button -->
+        {% if blogs.has_previous %}
+            <li>
+                <a href="?page={{ blogs.previous_page_number }}" class="page-link">&laquo;</a>
+            </li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+
+        <!-- Page Numbers -->
+        {% for num in blogs.paginator.page_range %}
+            {% if blogs.number == num %}
+                <li class="active"><span>{{ num }}</span></li>
+            {% elif num > blogs.number|add:'-3' and num < blogs.number|add:'3' %}
+                <li><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Next Button -->
+        {% if blogs.has_next %}
+            <li>
+                <a href="?page={{ blogs.next_page_number }}" class="page-link">&raquo;</a>
+            </li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% endblock %}
+</div>

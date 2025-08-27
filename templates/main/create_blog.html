@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Create Blog {% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/create.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}">
+    <div class="wrap">
+    <form class="card" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+    {{ form.user }}
+    {{ form.media }}
+      <h1 class="title">Post Blog!</h1>
+    {% if form.errors %}
+  <div class="alert" id="alertBox">
+    <span class="alert-message">
+      Please correct the following errors:
+      <ul>
+        {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+            <li><strong>{{ field|title }}:</strong> {{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </span>
+    <button class="alert-close" onclick="dismissAlert()">×</button>
+  </div>
+{% endif %}
+
+      <!-- Text field -->
+      <label class="field" for="{{ form.title.id_for_label }}">
+        <span class="label">Title</span>
+        {{ form.title }}
+        <span class="hint">Keep it short and descriptive.</span>
+        {% if form.title.errors %}<div class="error">{{ form.title.errors }}</div>{% endif %}
+      </label>
+
+    <!-- Description (CKEditor field) -->
+      <label class="field">
+        <span class="label">Description</span>
+        {{ form.content }}  {# this renders a rich text editor #}
+      </label>
+
+      <!-- Image field -->
+      <label class="field">
+        <span class="label">Thumbnail</span>
+        <div class="filebox" id="dropzone">
+          {{ form.thumbnail }}
+          <div class="file-ui">
+            <div class="icon">🖼️</div>
+            <div class="text">
+              <strong>Click to choose</strong> or drag & drop
+              <div class="sub">PNG, JPG, JPEG up to 100 MB</div>
+            </div>
+          </div>
+          <img src="" class="preview" id="preview" alt="">
+        </div>
+        {% if form.image.errors %}<div class="error">{{ form.image.errors }}</div>{% endif %}
+      </label>
+
+      <button class="btn" type="submit">Post Blog!</button>
+    </form>
+  </div>
+    <script>
+    const name = "{{ request.user.id }}";
+	document.getElementById('userid').value = name;
+    </script>
+    <script src="{% static 'js/create.js' %}"></script>
+{% endblock %}

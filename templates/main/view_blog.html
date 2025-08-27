@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} View Post {% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/view_blog.css' %}">
+    <!-- Blog Container -->
+    <div class="main-content">
+    <div class="blog-container">
+        <div class="blog-card">
+
+            <!-- Thumbnail -->
+            {% if blog.thumbnail %}
+                <div class="blog-thumbnail">
+                    <img src="{{ blog.thumbnail.url }}" alt="Thumbnail for {{ blog.title }}">
+                </div>
+            {% endif %}
+
+            <!-- Blog Title -->
+            <h1 class="blog-title">{{ blog.title }}</h1>
+
+            <!-- Meta Information -->
+            <div class="blog-meta">
+                <span class="author">✍️ <a href="{% url 'profile_user' blog.user.id %}" class="underline-special">{{ blog.user.username }}</a></span>
+                <span class="date">📅 {{ blog.date|date:"F j, Y" }}</span>
+                <span class="time">⏰ {{ blog.time|time:"g:i A" }}</span>
+            </div>
+
+            <!-- Blog Body -->
+            <div class="blog-body">
+                <div style="color: black;">
+                    {{ blog.content|safe }}
+                </div>
+            </div>
+        </div>
+        <!-- Comments Section (20%) -->
+    <div class="comments-section">
+        <h2>Comments</h2>
+        <!-- Comment Form -->
+    {% if request.user.is_authenticated %}
+        <form method="POST" id="comment-form" class="comment-form">
+            {% csrf_token %}
+            <textarea id="comment-text" name="text" required></textarea>
+            <button type="submit">Comment</button>
+        </form>
+        {% else %}
+         You need to Log in to comment!
+    {% endif %}
+        <div id="comment-list">
+            {% for comment in blog.comments.all %}
+                <div class="comment">
+                    <p><strong><a href="{% url 'profile_user' comment.user.id %}" class="underline-special">{{ comment.user.username }}</a></strong></p>
+                    <p>{{ comment.content }}</p>
+                    <small>{{ comment.created_at }}</small>
+                </div>
+            {% empty %}
+                <p>No comments yet. {% if request.user.is_authenticated %} Be the first! {% else %} <a href="{% url 'login' %}"> Login </a>to comment {% endif %}</p>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    </div>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("comment-form");
+    if (!form) return;
+
+    const list = document.getElementById("comment-list");
+
+    form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const response = await fetch("{% url 'add_comment' blog.id %}", {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": "{{ csrf_token }}"
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.html) {
+            const list = document.getElementById("comment-list");
+            list.insertAdjacentHTML("afterbegin", data.html);
+            form.reset();
+        } else {
+            console.error("No HTML returned:", data);
+        }
+    } else {
+        console.error("Request failed", response.status);
+    }
+});
+
+});
+</script>
+
+{% endblock %}

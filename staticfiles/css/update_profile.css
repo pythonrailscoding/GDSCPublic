@@ -1,0 +1,171 @@
+/* General layout */
+body {
+  background-color: #0b0f1a;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f1f1f1;
+  margin: 0;
+  padding: 0;
+}
+
+/* Grid for side-by-side cards */
+.form-grid {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  flex-wrap: wrap; /* ensures responsiveness */
+}
+
+.form-card {
+  background: #11182a;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  flex: 1 1 400px; /* responsive card width */
+  max-width: 500px;
+  position: relative;
+}
+
+/* Section headings */
+.form-card h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #ff5722;
+}
+
+/* Form fields */
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.field .label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.field input,
+.field textarea {
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  border: none;
+  background: #1c2333;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Drag-drop upload box */
+.filebox input[type="file"] {
+  display: none; /* Hide the default input completely */
+}
+
+
+.filebox {
+  border: 2px dashed #444;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  background: #0f1625;
+  transition: border-color 0.3s ease;
+}
+
+.filebox:hover {
+  border-color: #ff5722;
+}
+
+.file-ui .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.file-ui .text {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.file-ui strong {
+  color: #fff;
+}
+
+/* Preview image as avatar */
+.preview-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.preview {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  border: 3px solid #222;
+}
+
+.arrow {
+  font-size: 2rem;
+  color: #ff5722;
+  display: none; /* hidden by default */
+}
+
+
+.preview:hover {
+  opacity: 0.85;
+}
+
+/* Sticky Save button */
+.sticky-save-btn {
+  position: sticky;
+  bottom: 0;
+  display: block;
+  margin: 2rem auto 0 auto; /* center horizontally */
+  width: 200px; /* reduced width */
+  padding: 0.8rem 1rem;
+  background: #ff5722;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+  transition: background 0.3s ease;
+}
+
+.sticky-save-btn:hover {
+  background: #e64a19;
+}
+
+.form-errors {
+  background: #ff5252;
+  color: #fff;
+  padding: 1rem 1.2rem;
+  margin: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  list-style: none;
+}
+
+.form-errors ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.form-errors li {
+  margin-bottom: 0.3rem;
+}

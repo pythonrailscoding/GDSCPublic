@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} ️️ ⚙️ Settings {% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/setting_page.css' %}">
+
+    <!-- centered-grid.html -->
+<div class="container">
+    <div class="grid-container">
+    <div class="button-grid">
+        <div class="button-box" onclick="window.location.assign('{% url 'update_user_profile' request.user.id %}')">
+            <div class="icon">✏️</div>
+            <div class="label">Edit Profile</div>
+        </div>
+        <div class="button-box" onclick="window.location.assign('{% url 'delete_user' request.user.id %}')">
+            <div class="icon">🗑️</div>
+            <div class="label">Delete Account</div>
+        </div>
+        <div class="button-box" onclick="window.location.assign('{% url 'change_user_password' request.user.id %}')">
+            <div class="icon">🔒</div>
+            <div class="label">Change Password</div>
+        </div>
+        <div class="button-box">
+            <div class="icon">⚙️</div>
+            <div class="label">Settings</div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

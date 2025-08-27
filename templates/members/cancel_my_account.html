@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}
+    Delete Account
+{% endblock %}
+{% block content %}
+<div class="delete-container">
+    <div class="delete-card">
+        <h2 class="delete-title">Delete Your Account</h2>
+        <p class="delete-warning">
+            Deleting your account will permanently remove all your blogs. <br><br>
+            Please type <strong>CONFIRM</strong> to continue.
+        </p>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <!-- Input Group -->
+            <div class="delete-input-group">
+                <span class="delete-input-icon">⚠️</span>
+                <input type="text" id="confirm" name="confirm" placeholder="Type CONFIRM..." autocomplete="off">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="sub" class="delete-btn disabled" disabled>Yes, I am sure</button>
+        </form>
+
+        <!-- Abort Button -->
+        <a href="{% url 'settings_page' %}" class="delete-btn abort-btn">
+            Abort
+        </a>
+    </div>
+</div>
+
+<script>
+    setInterval(() => {
+        let val = document.getElementById("confirm").value.trim();
+        let btn = document.getElementById("sub");
+        if (val === "CONFIRM") {
+            btn.classList.remove("disabled");
+            btn.removeAttribute("disabled");
+        } else {
+            if (!btn.classList.contains("disabled")) {
+                btn.classList.add("disabled");
+                btn.setAttribute("disabled", true)
+            }
+        }
+    }, 200);
+
+    // Prevent paste
+    document.getElementById("confirm").addEventListener("paste", (e) => {
+        e.preventDefault();
+        alert("Sorry! You need to type 'CONFIRM', not paste it...");
+    });
+</script>
+
+<style>
+/* 🔥 Delete account card theme */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0b1020;
+    color: #eee;
+}
+
+.delete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.delete-card {
+    background: #12182b;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.6);
+    width: 380px;
+    text-align: center;
+}
+
+.delete-title {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #ff4c4c; /* Red accent for danger */
+}
+
+.delete-warning {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Input group */
+.delete-input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 0.5rem 0.75rem;
+    background: #2a2a2a;
+    transition: border 0.3s ease;
+}
+
+.delete-input-group:focus-within {
+    border-color: #ff4c4c;
+}
+
+.delete-input-icon {
+    margin-right: 0.5rem;
+    color: #ff4c4c;
+    font-weight: bold;
+}
+
+.delete-input-group input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 0.5rem;
+    background: transparent;
+    font-size: 1rem;
+    color: #eee;
+}
+
+/* Buttons */
+.delete-btn {
+    background: #ff4c4c;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.delete-btn:hover {
+    background: #e60000;
+    transform: translateY(-2px);
+}
+
+.delete-btn.disabled {
+    background: #555 !important;
+    cursor: not-allowed;
+}
+
+/* Abort button style */
+.abort-btn {
+    background:forestgreen;
+    color:white;
+}
+
+.abort-btn:hover {
+    background:#1f1f1f;
+    color:#ffa366;
+}
+</style>
+{% endblock %}

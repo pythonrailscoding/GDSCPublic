@@ -1,0 +1,194 @@
+/* static/css/cards.css */
+:root{
+  --bg: #0b1020;
+  --card-bg: #12182b;
+  --text: #e7eaf6;
+  --muted: #a6b0cf;
+  --accent: #6aa3ff;
+  --radius: 16px;
+  --gap: 1rem;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1200px 600px at 20% 0%, #0e1530, #070a16) fixed, var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.page-title {
+  margin: 0 0 1rem 0;
+  font-size: clamp(1.5rem, 1.5rem + 1vw, 2.25rem);
+  letter-spacing: 0.3px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+
+/* Card */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)) , var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(106,163,255,0.45);
+  box-shadow:
+    0 14px 40px rgba(25, 60, 130, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* Media area keeps a consistent visual rhythm */
+.card-media {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 10;       /* keeps rows even regardless of image size */
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder when no image uploaded */
+.card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(135deg, #1b2340, #1b2340 10px, #151b34 10px, #151b34 20px);
+  color: #93b5ff;
+  font-weight: 700;
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+/* Body */
+.card-body {
+  padding: 0.9rem 1rem 1.1rem;
+}
+
+.card-title {
+  margin: 0 0 .4rem 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.card-desc {
+  margin: 0 0 .9rem 0;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;   /* clamp to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-button {
+  display: inline-block;
+  padding: .55rem .9rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), #89b8ff);
+  color: #071023;
+  font-weight: 600;
+  text-decoration: none;
+  border: 0;
+  transition: filter .15s ease, transform .15s ease;
+}
+.card-button:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+/* Small screens: slightly tighter gaps */
+@media (max-width: 420px) {
+  :root { --gap: .75rem; }
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.pagination {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination li {
+    display: inline-block;
+}
+
+.pagination a, .pagination span {
+    display: block;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    background: #2a2a2a;
+    color: #eee;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.pagination a:hover {
+    background: #ff7b33;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.pagination .active span {
+    background: #ff7b33;
+    color: #fff;
+    font-weight: bold;
+}
+
+.pagination .disabled span {
+    background: #1e1e1e;
+    color: #555;
+    cursor: not-allowed;
+}
+
+/* Button */
+.btn-card {
+    background: #ff7b33;
+    width: 100%;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-card:hover {
+    background: #ff5714;
+    color: #c9b2b2;
+    transform: translateY(-2px);
+}
