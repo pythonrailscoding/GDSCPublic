@@ -126,7 +126,7 @@ def delete_user_account(request, token):
         user = User.objects.get(id=token)
         if user.id == request.user.id:
             if request.method == "POST":
-                template = render_to_string("authentication/delete_mail.html", {"user": user.username})
+                template = render_to_string("members/delete_mail.html", {"user": user.username})
                 send_mail(
                     'Your account was deleted Successfully!',
                     template,
