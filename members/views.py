@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 
+from main.models import BlogModel
 from . import forms
 from .models import VerifyMembers, Profile
 from django.conf import settings
@@ -148,7 +149,8 @@ def delete_user_account(request, token):
 def profile_user(request, pk):
     user = get_object_or_404(User, id=pk)
     profile_user_ = get_object_or_404(Profile, user=user)
-    return render(request, "members/profile.html", {"user": user, "profile_user_": profile_user_})
+    total_blogs = BlogModel.objects.filter(user=user).count()
+    return render(request, "members/profile.html", {"user": user, "profile_user_": profile_user_, "total_blogs": total_blogs})
 
 @login_required
 def settings_page(request):
@@ -172,4 +174,3 @@ def update_user_profile(request, pk):
         user_change_form = forms.UserDetailsChangeForm(instance=user)
         profile_user_change_form = forms.ProfileForm(instance=profile_user_)
     return render(request, "members/update_profile.html" ,{"profile": profile_user_, "u_form": user_change_form, "p_form": profile_user_change_form})
-

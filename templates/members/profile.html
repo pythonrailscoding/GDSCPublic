@@ -13,8 +13,11 @@
     <div class="main-content">
   <div class="profile-container">
     <div class="profile-left">
+    {% if profile_user_.profile_pic %}
       <img src="{{ profile_user_.profile_pic.url }}" alt="Profile Photo" class="profile-photo">
-
+{% else %}
+        <img src="{% static 'images/default_pic.png' %}" alt="Profile Photo" class="profile-photo">
+    {% endif %}
       <!-- Social Links -->
       <div class="social-links">
         <a href="{{ profile_user_.inst }}"><i class="inst fab fa-instagram {% if profile_user_.inst %}enabled{% else %}disabled{% endif %}"></i></a>
@@ -27,6 +30,10 @@
       <h2>{{ user.username }}</h2>
       <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
       <p><strong>Email:</strong> {{ user.email }}</p>
+        <!-- New Fields -->
+          <p><strong>Joined On:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
+          <p><strong>Total Blogs:</strong> {{ total_blogs }}</p>
+
         <p><strong>Bio:</strong>
             <div class="bio-section">
         <p id="bio-text">
@@ -45,3 +52,4 @@
     </div>
     <script src="{% static 'js/bio.js' %}"></script>
 {% endblock %}
+
