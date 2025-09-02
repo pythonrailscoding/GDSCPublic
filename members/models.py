@@ -11,8 +11,6 @@ class VerifyMembers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     is_verified = models.BooleanField(default=False)
-    change_email_later_hash = models.UUIDField(default=uuid.uuid4, editable=True, unique=True)
-    has_changed_email = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.user) + " " + str(self.is_verified)

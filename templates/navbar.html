@@ -34,7 +34,7 @@
       </button>
       <div class="dropdown-menu">
         <a href="{% url 'create' %}">New Blog</a>
-        <a href="#">Upload Image</a>
+        <a href="{% url 'view_user_all' request.user.id %}">View All your blogs</a>
         <a href="#">Start Draft</a>
       </div>
     </div>

@@ -32,7 +32,29 @@
       <p><strong>Email:</strong> {{ user.email }}</p>
         <!-- New Fields -->
           <p><strong>Joined On:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
-          <p><strong>Total Blogs:</strong> {{ total_blogs }}</p>
+          <p>
+              <strong>Total Blogs:</strong>
+              {% if total_blogs != 0 %}
+              {{ total_blogs }}
+              <a href="{% url 'view_user_all' profile_user_.user.id %}" class="view-all-link">(View All)</a>
+              {% else %}
+              {{ user.username }} is yet to post a blog....
+              {% endif %}
+          </p>
+    <style>
+
+.view-all-link {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  color: #ff5722;
+  text-decoration: none;
+}
+
+.view-all-link:hover {
+  text-decoration: underline;
+  color: #e64a19;
+}
+    </style>
 
         <p><strong>Bio:</strong>
             <div class="bio-section">

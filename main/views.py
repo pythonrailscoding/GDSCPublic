@@ -1,6 +1,7 @@
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
@@ -16,7 +17,21 @@ def index(request):
     page = request.GET.get('page')
     blogs = p.get_page(page)
 
-    return render(request, 'main/index.html', {"blogs": blogs})
+    is_other = False
+
+    return render(request, 'main/index.html', {"blogs": blogs, "is_other": is_other})
+
+def view_user_all(request, pk):
+    user = User.objects.get(pk=pk)
+    list_blogs = BlogModel.objects.filter(user=user).order_by('-id')
+
+    p = Paginator(list_blogs, 8)
+    page = request.GET.get('page')
+    blogs = p.get_page(page)
+
+    is_other = True
+
+    return render(request, 'main/index.html', {"blogs": blogs, "is_other": is_other, "user": user})
 
 @login_required
 def create_blog(request):

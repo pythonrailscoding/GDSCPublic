@@ -1,14 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Home
+    {% if is_other %}
+        View all Blogs!
+    {% else %}
+        Home
+    {% endif %}
 {% endblock %}
 {% block content %}
 <div>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
     <main class="container">
-    <h1 class="page-title">Latest Blogs</h1>
+    <h1 class="page-title">
+        {% if not is_other %}
+            Latest Blogs
+        {% else %}
+            {% if request.user.is_authenticated %}
+                {% if request.user.id == user.id %}
+                    View all of your blogs!!
+                    {% endif %}
+                {% endif %}
+            {% if request.user.id != user.id %}
+            View all blogs from {{ user.username }}
+                {% endif %}
+        {% endif %}
+    </h1>
 
     <section class="card-grid">
       {% for card in blogs %}
@@ -34,7 +51,24 @@
                 {% endwith %}
             </h2>
 
-              <p class="card-desc"><a href="{% url 'profile_user' card.user.id %}" class="underline-special">{{ card.user.username }}</a> posted this on {{ card.date }}, {{ card.time }}</p>
+              <p class="card-desc">
+                  {% if is_other %}
+                        {% if request.user.is_authenticated %}
+                      {% if user.id == request.user.id %}
+                          <a href="{% url 'profile_user' card.user.id %}" class="underline-special">You</a>
+                            posted this on {{ card.date }}, {{ card.time }}
+                          {% endif %}
+
+                            {% endif %}
+                      {% if request.user.id != user.id %}
+                          <a href="{% url 'profile_user' card.user.id %}" class="underline-special">{{ card.user.username }}</a>
+                            posted this on {{ card.date }}, {{ card.time }}
+                          {% endif %}
+                  {% else %}
+                    <a href="{% url 'profile_user' card.user.id %}" class="underline-special">{{ card.user.username }}</a>
+                    posted this on {{ card.date }}, {{ card.time }}
+                  {% endif %}
+              </p>
 
             <a href="{% url 'view_blog' card.pk %}" class="btn-card">Read More</a>
           </div>
