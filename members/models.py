@@ -44,10 +44,3 @@ class Profile(models.Model):
         if self.profile_pic and os.path.isfile(self.profile_pic.path):
             os.remove(self.profile_pic.path)
         super().delete(*args, **kwargs)
-
-class Subscriber(models.Model):
-    logged_in_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='logged_in_user')
-    subscribed_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscribed_to')
-
-    def __str__(self):
-        return str(self.logged_in_user) + " has subscribed to " + str(self.subscribed_to)

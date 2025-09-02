@@ -24,6 +24,14 @@
                 <span class="date">📅 {{ blog.date|date:"F j, Y" }}</span>
                 <span class="time">⏰ {{ blog.time|time:"g:i A" }}</span>
             </div>
+                 <!-- Edit / Delete Buttons (only for author) -->
+    {% if request.user.id == blog.user.id %}
+    <div class="blog-actions">
+        <a href="#" class="btn-edit">✏️ Edit</a>
+        <button class="btn-delete" onclick="openDeleteModal()">🗑️ Delete</button>
+    </div>
+    {% endif %}
+
 
             <!-- Blog Body -->
             <div class="blog-body">
@@ -31,6 +39,7 @@
                     {{ blog.content|safe }}
                 </div>
             </div>
+
         </div>
         <!-- Comments Section (20%) -->
     <div class="comments-section">
@@ -59,12 +68,25 @@
     </div>
     </div>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <h3>Are you sure to delete this blog?</h3>
+    <p>This action cannot be undone.</p>
+    <div class="modal-actions">
+      <form id="deleteForm" method="post" action="{% url 'delete_blog' blog.id %}">
+        {% csrf_token %}
+        <button type="submit" class="confirm-btn">Yes, Delete</button>
+      </form>
+      <button class="cancel-btn" onclick="closeDeleteModal()">Cancel</button>
+    </div>
+  </div>
+</div>
     <script>
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("comment-form");
     if (!form) return;
-
-    const list = document.getElementById("comment-list");
 
     form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -95,6 +117,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 });
+function openDeleteModal() {
+  document.getElementById("deleteModal").style.display = "flex";
+}
+
+function closeDeleteModal() {
+  document.getElementById("deleteModal").style.display = "none";
+}
 </script>
 
 {% endblock %}

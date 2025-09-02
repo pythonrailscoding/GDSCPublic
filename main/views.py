@@ -62,3 +62,27 @@ def add_comment(request, pk):
         return JsonResponse({"html": html})
     return JsonResponse({"error": "Invalid request"}, status=400)
 
+@login_required
+def edit_blog(request, pk):
+    pass
+
+@login_required
+def delete_blog(request, pk):
+    blog = BlogModel.objects.get(pk=pk)
+    if blog.user.id == request.user.id:
+        blog.delete()
+        """
+        # redirect user to whatever post they sent request. Why? Say user was sending from view his blogs.
+        # Redirect him to view his blogs. What if he was sending from main page itself, redirect him back
+        what_to_redirect_ = request.GET.get('next') or request.POST.get('next')
+        if what_to_redirect_:
+            return redirect(what_to_redirect_)
+            
+        My use case for this elapsed. But this is how you delete
+        """
+        messages.success(request, 'Blog deleted successfully!')
+        return redirect("index")
+    else:
+        messages.error(request, 'You are not authorized to delete this blog!')
+        return redirect("index")
+

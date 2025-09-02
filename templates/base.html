@@ -37,7 +37,7 @@
         {% include 'navbar.html' %}
         <div style="margin-top: 5px;">
             {% for message in messages %}
-                <div class="" style="margin-top: 10px;">
+                <div class="" style="margin-top: 10px; padding-left: 10px; padding-right: 20px; ">
                     {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                         <div class="alert alert-danger alert-dismissible d-flex align-items-center" role="alert">
                             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"></use></svg>

@@ -7,18 +7,6 @@ import os
 
 from django_resized import ResizedImageField
 
-class CategoryModel(models.Model):
-    name = models.CharField(max_length=10)
-
-    def __str__(self):
-        return " "
-
-class TagsModel(models.Model):
-    name = models.CharField(max_length=30)
-
-    def __str__(self):
-        return " "
-
 class BlogModel(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     id = models.BigAutoField(primary_key=True)
@@ -28,9 +16,6 @@ class BlogModel(models.Model):
     time = models.TimeField(auto_now_add=True)
     thumbnail = ResizedImageField(size=[232, 216] ,quality=90 ,upload_to="thumbnails/%y", validators=[validate_image_extension, file_limit], default=None)
 
-    # Categories and Tags
-    category = models.ManyToManyField(CategoryModel, related_name="category")
-    tags = models.ManyToManyField(TagsModel, related_name="tags")
 
     def __str__(self):
         return str(self.user) + " has made a blog about " + str(self.title)[:20] + "..... "
