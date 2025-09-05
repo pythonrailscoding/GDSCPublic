@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ev+!-7eyxnx$qzh)7=)f5g+jo*hny7g+pubx&8a^n_-b%nf8iz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", ".onrender.com").split(",")
 # Example: set ALLOWED_HOSTS to: ".onrender.com,yourdomain.com"
