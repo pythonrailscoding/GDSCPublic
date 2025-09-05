@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ev+!-7eyxnx$qzh)7=)f5g+jo*hny7g+pubx&8a^n_-b%nf8iz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", ".onrender.com").split(",")
+# Example: set ALLOWED_HOSTS to: ".onrender.com,yourdomain.com"
+
 CSRF_TRUSTED_ORIGINS = []
 
 # Application definition
@@ -45,13 +48,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Blog.urls'
@@ -76,13 +79,22 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+"""
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default="postgresql://postgres:postgres@localhost:5432/yourlocaldb",
+        conn_max_age=600
+    )
+}
+
 
 
 # Password validation
@@ -125,8 +137,9 @@ STATICFILES_DIRS = [
 	os.path.join(BASE_DIR, "static")
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Render uses 'staticfiles' in examples
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Media files configurations
 MEDIA_URL = "/media/"
