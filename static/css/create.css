@@ -1,4 +1,4 @@
-/* form.css — minimalist, accessible styling */
+
 :root{
   --bg:#0b1020; --card:#12182b; --text:#eef1fb; --muted:#a8b3cf;
   --accent:#6aa3ff; --ring:rgba(106,163,255,.55); --radius:16px;
@@ -9,14 +9,14 @@ body{margin:0;
     color:var(--text);
      font-family: ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial;}
 
-/* Layout */
+
 .wrap{min-height:100%;display:grid;place-items:center;padding:2rem}
 .card{width:min(680px,92vw);background:var(--card);border:1px solid rgba(255,255,255,.08);
       border-radius:var(--radius);padding:1.25rem 1.25rem 1.4rem;
       box-shadow:0 18px 50px rgba(0,0,0,.35)}
 .title{margin:.2rem 0 1rem;font-size:1.4rem;letter-spacing:.2px}
 
-/* Fields */
+
 .field{display:block;margin-bottom:1rem}
 .label{display:block;margin:0 0 .45rem;font-size:.95rem;color:#dbe3ff}
 .input{
@@ -28,7 +28,7 @@ body{margin:0;
 
 .hint{display:block;margin-top:.4rem;font-size:.85rem;color:var(--muted)}
 
-/* File input (custom) */
+
 .filebox{
     position:relative;
     border:1.5px dashed rgba(255,255,255,.18);
@@ -75,5 +75,5 @@ body{margin:0;
     outline-offset:2px
 }
 
-/* Reduce motion */
+
 @media (prefers-reduced-motion: reduce){*{transition:none !important}}

@@ -29,13 +29,15 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         try:
             # If updating, check old photo
+            # You dont want user to upload same photo twice. That wastes space
             old_profile = Profile.objects.get(pk=self.pk)
             if old_profile.profile_pic and old_profile.profile_pic != self.profile_pic:
                 old_path = old_profile.profile_pic.path
                 if os.path.isfile(old_path):
-                    os.remove(old_path)  # delete old photo
+                    # delete old photo
+                    os.remove(old_path)
         except Profile.DoesNotExist:
-            pass  # first time creating profile, so no old photo
+            pass  # first time creating profile, so no old photo, let him do it
 
         super().save(*args, **kwargs)
 

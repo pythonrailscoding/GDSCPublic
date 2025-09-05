@@ -9,6 +9,9 @@ window.addEventListener("load", function () {
         setTimeout(() => {
             loader.style.display = "none";
             sessionStorage.setItem("loaderShown", "true");
+            // Difference between sessionstorage and localstorage.
+            // SessionStorage is limited to memory in one tab
+            // Localstorage limits to that browser storage. Clear cache and remove it
         }, 500);
     }, 3000);
 });

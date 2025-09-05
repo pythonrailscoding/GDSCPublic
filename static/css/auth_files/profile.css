@@ -92,25 +92,25 @@
 }
 
 .social-links a:hover .inst {
-  color: #e4405f;  /* official Instagram pink */
+  color: #e4405f;
 }
 
 .social-links a:hover .face {
-  color: #1877f2; /* Official Facebook blue */
+  color: #1877f2;
 }
 
 .social-links a:hover .twit {
-  color: #000; /* Official X black */
+  color: #000;
 }
 
-/* Disabled State */
+
 .social-icons a.disabled {
     pointer-events: none;   /* not clickable */
     color: #666;            /* greyed out */
     opacity: 0.5;           /* faded look */
 }
 
-/* Edit button */
+
 .edit-btn {
   margin-top: 20px;
   padding: 12px 24px;

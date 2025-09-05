@@ -1,13 +1,13 @@
 a.underline-special {
-  text-decoration: none;       /* remove underline */
-  color: #ff7b33;              /* custom color */
-  font-weight: 600;            /* make it a bit bold */
+  text-decoration: none;
+  color: #ff7b33;
+  font-weight: 600;
   font-family: "Segoe UI", cursive, sans-serif;
-  letter-spacing: 0.5px;       /* subtle spacing */
-  transition: color 0.3s ease; /* smooth hover */
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
 }
 
 a.underline-special:hover {
-  color: #ffa866;              /* lighter shade on hover */
-  text-decoration: underline;  /* underline only on hover */
+  color: #ffa866;
+  text-decoration: underline;
 }

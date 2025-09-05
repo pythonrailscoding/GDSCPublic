@@ -14,17 +14,17 @@
         <form action="" method="POST">
             {% csrf_token %}
 
-            <!-- Input Group -->
+
             <div class="delete-input-group">
                 <span class="delete-input-icon">⚠️</span>
                 <input type="text" id="confirm" name="confirm" placeholder="Type CONFIRM..." autocomplete="off">
             </div>
 
-            <!-- Submit Button -->
+
             <button type="submit" id="sub" class="delete-btn disabled" disabled>Yes, I am sure</button>
         </form>
 
-        <!-- Abort Button -->
+
         <a href="{% url 'settings_page' %}" class="delete-btn abort-btn">
             Abort
         </a>
@@ -54,7 +54,7 @@
 </script>
 
 <style>
-/* 🔥 Delete account card theme */
+
 body {
     font-family: 'Segoe UI', sans-serif;
     background: #0b1020;
@@ -80,7 +80,7 @@ body {
 .delete-title {
     font-size: 1.6rem;
     margin-bottom: 1rem;
-    color: #ff4c4c; /* Red accent for danger */
+    color: #ff4c4c;
 }
 
 .delete-warning {
@@ -89,7 +89,7 @@ body {
     margin-bottom: 1.2rem;
 }
 
-/* Input group */
+
 .delete-input-group {
     display: flex;
     align-items: center;
@@ -148,7 +148,7 @@ body {
     cursor: not-allowed;
 }
 
-/* Abort button style */
+
 .abort-btn {
     background:forestgreen;
     color:white;

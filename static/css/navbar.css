@@ -17,8 +17,8 @@
 }
 
 .nav-center .nav-link {
-    color: #000;                 /* black text */
-    background: #ff9800;         /* orange background for visibility */
+    color: #000;
+    background: #ff9800;
     padding: 0.4rem 1rem;
     border-radius: 8px;
     font-weight: 500;
@@ -26,10 +26,10 @@
 }
 
 .nav-center .nav-link:hover {
-    background: #ffa726;         /* lighter orange on hover */
+    background: #ffa726;
 }
 
-/* Left side */
+
 .navbar-left {
   display: flex;
   align-items: center;
@@ -48,14 +48,14 @@
   color: #333;
 }
 
-/* Right side */
+
 .navbar-right {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-/* Buttons */
+
 .icon-btn {
   background: none;
   border: none;
@@ -83,7 +83,7 @@
   object-fit: cover;
 }
 
-/* Dropdown */
+
 .dropdown {
   position: relative;
 }
@@ -114,7 +114,7 @@
   background: #f3f3f3;
 }
 
-/* Show dropdown when active */
+
 .dropdown.open .dropdown-menu {
   display: block;
 }

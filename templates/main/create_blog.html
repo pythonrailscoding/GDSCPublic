@@ -65,7 +65,7 @@
   </div>
 {% endif %}
 
-      <!-- Text field -->
+
       <label class="field" for="{{ form.title.id_for_label }}">
         <span class="label">Title</span>
         {{ form.title }}
@@ -73,13 +73,13 @@
         {% if form.title.errors %}<div class="error">{{ form.title.errors }}</div>{% endif %}
       </label>
 
-    <!-- Description (CKEditor field) -->
+
       <label class="field">
         <span class="label">Description</span>
-        {{ form.content }}  {# this renders a rich text editor #}
+        {{ form.content }}
       </label>
 
-      <!-- Image field -->
+
       <label class="field">
         <span class="label">Thumbnail</span>
         <div class="filebox" id="dropzone">
