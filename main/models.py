@@ -14,7 +14,9 @@ class BlogModel(models.Model):
     content = RichTextField()
     date = models.DateField(auto_now_add=True)
     time = models.TimeField(auto_now_add=True)
-    thumbnail = ResizedImageField(size=[232, 216] ,quality=90 ,upload_to="thumbnails/%y", validators=[validate_image_extension, file_limit], default=None)
+    was_updated = models.BooleanField(default=False)
+    when_last_updated = models.DateField(auto_now_add=True)
+    thumbnail = ResizedImageField(size=[232, 216] ,quality=90 ,upload_to="thumbnails/%y", validators=[validate_image_extension, file_limit], default=None, blank=True, null=True)
 
 
     def __str__(self):

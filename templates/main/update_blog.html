@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Create Blog {% endblock %}
+{% block title %} Update Blog {% endblock %}
 
 {% block content %}
     <style>
@@ -48,7 +48,7 @@
       {% csrf_token %}
     {{ form.user }}
     {{ form.media }}
-      <h1 class="title">Post Blog!</h1>
+      <h1 class="title">Update your blog!</h1>
     {% if form.errors %}
   <div class="alert" id="alertBox">
     <span class="alert-message">
@@ -79,24 +79,32 @@
         {{ form.content }}  {# this renders a rich text editor #}
       </label>
 
-      <!-- Image field -->
       <label class="field">
-        <span class="label">Thumbnail</span>
-        <div class="filebox" id="dropzone">
-          {{ form.thumbnail }}
-          <div class="file-ui">
-            <div class="icon">🖼️</div>
-            <div class="text">
-              <strong>Click to choose</strong> or drag & drop
-              <div class="sub">All files supported* up to 100 MB</div>
-            </div>
-          </div>
-          <img src="" class="preview" id="preview" alt="">
-        </div>
-        {% if form.image.errors %}<div class="error">{{ form.image.errors }}</div>{% endif %}
-      </label>
-<p style="cursor: pointer; align-items: center" onclick="openDeleteModal()">*View unsupported file extensions</p>
-      <button class="btn" type="submit">Post Blog!</button>
+  <span class="label">Thumbnail</span>
+  <div class="filebox" id="dropzone">
+    {{ form.thumbnail }}
+    <div class="file-ui">
+      <div class="icon">🖼️</div>
+      <div class="text">
+        <strong>Click to choose</strong> or drag & drop
+        <div class="sub">All files supported* up to 100 MB</div>
+      </div>
+    </div>
+
+    <!-- Existing preview or hidden placeholder -->
+    {% if form.instance and form.instance.thumbnail %}
+      <img src="{{ form.instance.thumbnail.url }}" class="preview" id="preview" alt="Thumbnail Preview">
+    {% else %}
+      <img src="" class="preview" id="preview" alt="Thumbnail Preview" style="display: none;">
+    {% endif %}
+  </div>
+  {% if form.thumbnail.errors %}
+    <div class="error">{{ form.thumbnail.errors }}</div>
+  {% endif %}
+</label>
+    <p style="cursor: pointer; align-items: center" onclick="openDeleteModal()">*View unsupported file extensions</p>
+
+      <button class="btn" type="submit">Update!</button>
     </form>
   </div>
     <div id="deleteModal" class="modal">
@@ -110,7 +118,54 @@
     <script>
     const name = "{{ request.user.id }}";
 	document.getElementById('userid').value = name;
-    function openDeleteModal() {
+    </script>
+    <script>
+    const input = document.getElementById("image");
+const preview = document.getElementById("preview");
+const dropzone = document.getElementById("dropzone");
+
+function showPreview(file) {
+  if (!file || !file.type.startsWith("image/")) return;
+  const url = URL.createObjectURL(file);
+  preview.src = url;
+  preview.style.display = "block";
+  dropzone.classList.add("has-preview");
+}
+
+if (input) {
+  input.addEventListener("change", e => showPreview(e.target.files[0]));
+}
+
+// Drag & Drop
+["dragenter", "dragover"].forEach(ev =>
+  dropzone.addEventListener(ev, e => {
+    e.preventDefault();
+    dropzone.classList.add("drag");
+  })
+);
+["dragleave", "drop"].forEach(ev =>
+  dropzone.addEventListener(ev, e => {
+    e.preventDefault();
+    dropzone.classList.remove("drag");
+  })
+);
+
+dropzone.addEventListener("drop", e => {
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    input.files = e.dataTransfer.files;
+    showPreview(file);
+  }
+});
+
+// On page load, show existing thumbnail (for update blog case)
+window.addEventListener("DOMContentLoaded", () => {
+  if (preview && preview.src && preview.src.trim() !== "" && !preview.src.includes("placeholder")) {
+    preview.style.display = "block";
+    dropzone.classList.add("has-preview");
+  }
+});
+function openDeleteModal() {
   document.getElementById("deleteModal").style.display = "flex";
 }
 
@@ -118,6 +173,9 @@ function closeDeleteModal() {
   document.getElementById("deleteModal").style.display = "none";
 }
 </script>
+
     </script>
-    <script src="{% static 'js/create.js' %}"></script>
 {% endblock %}
+
+
+

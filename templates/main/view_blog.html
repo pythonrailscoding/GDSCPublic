@@ -24,10 +24,11 @@
                 <span class="date">📅 {{ blog.date|date:"F j, Y" }}</span>
                 <span class="time">⏰ {{ blog.time|time:"g:i A" }}</span>
             </div>
+        <p style="text-align: center">{% if blog.was_updated %}Updated last on  {{ blog.when_last_updated }}{% endif %}</p>
                  <!-- Edit / Delete Buttons (only for author) -->
     {% if request.user.id == blog.user.id %}
     <div class="blog-actions">
-        <a href="#" class="btn-edit">✏️ Edit</a>
+        <a href="{% url 'update_blog' blog.id %}" class="btn-edit" style="text-decoration: none;">✏️ Edit</a>
         <button class="btn-delete" onclick="openDeleteModal()">🗑️ Delete</button>
     </div>
     {% endif %}

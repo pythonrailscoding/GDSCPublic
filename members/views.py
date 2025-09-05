@@ -36,6 +36,7 @@ def login(request):
                         return redirect("login")
                 else:
                     messages.error(request, "Your account is not verified! Check your Registered Email to Verify!")
+                    messages.success(request, "Please check Spam folder if you don't find email in your Inbox")
                     return redirect("login")
             else:
                 messages.error(request, "No User exists with that username!")
@@ -79,6 +80,7 @@ def register(request):
                         [email]
                     )
                     messages.success(request, "Account created! Please check your email to activate your account!")
+                    messages.success(request, "Please check Spam folder if you don't find email in your Inbox")
                     return redirect("login")
         return render(request, "members/register.html", {})
     else:

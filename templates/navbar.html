@@ -2,6 +2,29 @@
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 <!-- Google Font for cursive text -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<style>
+    .home-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: orange;
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.home-icon:hover {
+    background: darkorange;
+    color: white;
+}
+
+.home-icon i {
+    font-size: 18px;
+}
+
+</style>
 <nav class="navbar">
   <!-- Left: Logo + Name -->
   <div class="navbar-left">
@@ -9,7 +32,10 @@
     <span class="brand" style="font-family: 'Pacifico', cursive;">Blogger!</span>
   </div>
     <div class="nav-center">
-        <a href="{% url 'index' %}" class="nav-link">View Blogs</a>
+        <a href="{% url 'index' %}" class="home-icon">
+    <i class="fa-solid fa-house"></i>
+</a>
+
     </div>
 {% if not request.user.is_authenticated %}
     <div class="navbar-right">
@@ -35,7 +61,6 @@
       <div class="dropdown-menu">
         <a href="{% url 'create' %}">New Blog</a>
         <a href="{% url 'view_user_all' request.user.id %}">View All your blogs</a>
-        <a href="#">Start Draft</a>
       </div>
     </div>
 

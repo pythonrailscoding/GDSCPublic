@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
-
+from django.utils import timezone
 from .models import BlogModel, Comment
-from .forms import BlogForm
+from .forms import BlogForm, BlogCreateForm
 from django.core.paginator import Paginator
 
 def index(request):
@@ -36,13 +36,13 @@ def view_user_all(request, pk):
 @login_required
 def create_blog(request):
     if request.method == 'POST':
-        form = BlogForm(request.POST, request.FILES)
+        form = BlogCreateForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Blog posted successfully!')
             return redirect("index")
     else:
-        form = BlogForm(None)
+        form = BlogCreateForm(None)
 
     return render(request, 'main/create_blog.html', {'form': form})
 
@@ -85,4 +85,32 @@ def delete_blog(request, pk):
     else:
         messages.error(request, 'You are not authorized to delete this blog!')
         return redirect("index")
+
+@login_required
+def update_blog(request, pk):
+    blog = BlogModel.objects.get(pk=pk)
+
+    if blog.user.id != request.user.id:
+        messages.error(request, 'You are not authorized to edit this blog!')
+        return redirect("index")
+
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid():
+            blog = form.save(commit=False)
+
+            # ✅ only replace thumbnail if a new file was uploaded
+            if not form.cleaned_data.get("thumbnail"):
+                blog.thumbnail = blog.thumbnail  # keep the old file
+
+            blog.was_updated = True
+            blog.when_last_updated = timezone.now().date()
+            blog.save()
+
+            messages.success(request, 'Blog updated successfully!')
+            return redirect("view_blog", pk=pk)
+    else:
+        form = BlogForm(instance=blog)
+
+    return render(request, "main/update_blog.html", {"blog": blog, "form": form})
 
