@@ -2,8 +2,12 @@ services:
   - type: web
     name: GDSC
     env: python
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn Blog.wsgi:application"
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: gunicorn Blog.wsgi:application
     envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: Blog.settings
+      - key: DATABASE_URL
+        value: "postgresql://blogger_postgress_service_user:4eQepgMF97yG29lThHLd3loRzgoObJEH@dpg-d2t9ul8gjchc739lkp80-a.oregon-postgres.render.com/blogger_postgress_service"
+      - key: SECRET_KEY
+        fromDatabase: false
+        value: "django-insecure-ev+!-7eyxnx$qzh)7=)f5g+jo*hny7g+pubx&8a^n_-b%nf8iz"
