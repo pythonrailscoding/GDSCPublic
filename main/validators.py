@@ -5,7 +5,7 @@ import os
 def file_limit(value):
 	file_size = value.size
 	if file_size > 100000000:
-		raise ValidationError("Maximum size for Image to be Uploaded is 100MB! Your Video Size exceeds this limit!")
+		raise ValidationError("Maximum size for Image to be Uploaded is 100MB! Your Image Size exceeds this limit!")
 
 def validate_image_extension(value):
 	ext = os.path.splitext(value.name)[1]
