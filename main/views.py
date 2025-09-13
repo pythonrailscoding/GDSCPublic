@@ -99,7 +99,7 @@ def update_blog(request, pk):
         if form.is_valid():
             blog = form.save(commit=False)
 
-            # ✅ only replace thumbnail if a new file was uploaded
+            # only replace thumbnail if a new file was uploaded
             if not form.cleaned_data.get("thumbnail"):
                 blog.thumbnail = blog.thumbnail  # keep the old file
 
